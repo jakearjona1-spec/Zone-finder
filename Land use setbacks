@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bradenton Zoning Setbacks</title>
+  <style>
+    :root{
+      --bg:#0b1220;
+      --card:#0f1a2f;
+      --card2:#101f3a;
+      --text:#e9eefc;
+      --muted:#b9c4e6;
+      --line:rgba(255,255,255,.10);
+      --accent:#5dd6ff;
+      --accent2:#7c5cff;
+      --good:#2ee59d;
+      --shadow: 0 18px 40px rgba(0,0,0,.35);
+      --radius:16px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(900px 600px at 20% 10%, rgba(93,214,255,.20), transparent 60%),
+        radial-gradient(900px 600px at 90% 20%, rgba(124,92,255,.18), transparent 55%),
+        linear-gradient(180deg, #070b14 0%, #0b1220 55%, #070b14 100%);
+      color:var(--text);
+    }
+
+    header{
+      padding:22px 16px 10px;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+    }
+    .logo{
+      width:42px; height:42px; border-radius:12px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 10px 25px rgba(93,214,255,.18);
+    }
+    h1{
+      font-size:18px; margin:0;
+      letter-spacing:.2px;
+    }
+    .sub{
+      margin:8px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    main{ max-width:980px; margin: 0 auto; padding: 12px 16px 28px; }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:14px;
+    }
+    @media (min-width: 900px){
+      .grid{ grid-template-columns: 1.1fr .9fr; }
+    }
+
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .card .inner{ padding: 14px; }
+    .card h2{
+      margin:0 0 8px;
+      font-size: 14px;
+      color: var(--text);
+      letter-spacing:.2px;
+    }
+    .pillrow{
+      display:flex; flex-wrap:wrap; gap:8px; align-items:center;
+      margin-bottom: 10px;
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      font-size:12px;
+      color: var(--muted);
+    }
+    .dot{
+      width:8px; height:8px; border-radius:50%;
+      background: var(--good);
+      box-shadow: 0 0 0 4px rgba(46,229,157,.12);
+    }
+
+    .row{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:10px;
+    }
+    @media (min-width: 720px){
+      .row{ grid-template-columns: 1fr 1fr; }
+    }
+
+    label{
+      display:block;
+      font-size:12px;
+      color: var(--muted);
+      margin: 0 0 6px;
+      font-weight: 700;
+      letter-spacing:.03em;
+      text-transform: uppercase;
+    }
+    select{
+      width:100%;
+      padding: 12px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.22);
+      color: var(--text);
+      outline: none;
+      font-size: 16px;
+    }
+
+    .tablewrap{
+      margin-top: 12px;
+      border-radius: 14px;
+      border:1px solid var(--line);
+      overflow:hidden;
+      background: rgba(0,0,0,.18);
+    }
+    table{
+      width:100%;
+      border-collapse: collapse;
+    }
+    th, td{
+      padding: 12px 12px;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      text-align:left;
+    }
+    th{
+      font-size:12px;
+      color: var(--muted);
+      letter-spacing:.03em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,.04);
+    }
+    tr:last-child td{ border-bottom: none; }
+
+    .big{
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing:.2px;
+    }
+    .unit{ color: var(--muted); font-weight: 700; font-size: 12px; margin-left: 6px; }
+
+    .note{
+      margin-top: 12px;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border:1px solid rgba(93,214,255,.22);
+      background: rgba(93,214,255,.10);
+      color: var(--text);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+    .note strong{ color: #dff7ff; }
+
+    .sidecard{
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .sidecard .inner{ padding: 14px; }
+    .muted{ color: var(--muted); font-size: 13px; line-height: 1.4; }
+
+    .btnrow{
+      display:flex; flex-wrap:wrap; gap:10px;
+      margin-top: 12px;
+    }
+    a.btn{
+      text-decoration:none;
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:8px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      font-weight: 800;
+      font-size: 13px;
+    }
+    a.btn.primary{
+      border-color: rgba(93,214,255,.40);
+      background: linear-gradient(135deg, rgba(93,214,255,.22), rgba(124,92,255,.18));
+    }
+    .footer{
+      margin-top: 14px;
+      color: rgba(185,196,230,.85);
+      font-size: 12px;
+    }
+    .kbd{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.22);
+      color: var(--text);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="logo" aria-hidden="true"></div>
+      <div>
+        <h1>Bradenton Zoning Setbacks</h1>
+        <p class="sub">Minimum setback reference tool (feet). Select a zoning district to view principal building setbacks and accessory structure notes.</p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="grid">
+      <!-- MAIN -->
+      <section class="card">
+        <div class="inner">
+          <div class="pillrow">
+            <span class="pill"><span class="dot"></span> Minimum setback in feet</span>
+            <span class="pill">Category: <strong style="color:var(--text)">Principal building</strong></span>
+          </div>
+
+          <div class="row">
+            <div>
+              <label for="district">Zoning District</label>
+              <select id="district"></select>
+            </div>
+            <div>
+              <label for="lotNote">Lot / Yard Notes</label>
+              <select id="lotNote">
+                <option value="standard" selected>Standard lot</option>
+                <option value="secondary">Secondary yard note</option>
+                <option value="culdesac">Cul-de-sac note</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="tablewrap" id="tablewrap" style="margin-top:12px;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Yard</th>
+                  <th>Minimum Setback</th>
+                </tr>
+              </thead>
+              <tbody id="tbody"></tbody>
+            </table>
+          </div>
+
+          <div class="note" id="footnote"></div>
+
+          <div class="btnrow">
+            <a class="btn primary" href="../">← Back to Zone Finder</a>
+            <a class="btn" href="./" id="copyLink">Copy this page link</a>
+          </div>
+
+          <div class="footer">
+            Tip: You can share this link in emails, a City webpage, or a QR code. Keep it updated if the code changes.
+          </div>
+        </div>
+      </section>
+
+      <!-- SIDE -->
+      <aside class="sidecard">
+        <div class="inner">
+          <h2>Accessory buildings & structures</h2>
+          <p class="muted">
+            <strong>Accessory building and structures, except fences:</strong><br/>
+            Minimum setbacks are <strong>5 ft</strong> from the <strong>side</strong> and <strong>rear</strong> property lines.
+          </p>
+
+          <div class="note" style="margin-top:12px; border-color: rgba(255,255,255,.12); background: rgba(255,255,255,.06);">
+            <strong>Footnote:</strong><br/>
+            For <strong>front setbacks</strong>: secondary yard is <strong>15 ft</strong> and cul-de-sac lots may reduce lot width at building line by <strong>25 ft</strong>.
+          </div>
+
+          <div class="footer" style="margin-top:12px;">
+            If you want, we can add more districts, corner-lot rules, alley rules, or overlays as you confirm them.
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    // Principal building — minimum setback in feet (as provided)
+    const SETBACKS = {
+      "R-1": { label: "R-1", front: 20, side: 8, rear: 20 },
+      "R-2": { label: "R-2", front: 20, side: 8, rear: 20 },
+      "R-3": { label: "R-3", front: 20, side: 8, rear: 20 },
+      "UV":  { label: "UV",  front: 10, side: 5, rear: 5  },
+      "R-4": { label: "R-4", front: 5,  side: 5, rear: 5  }
+    };
+
+    const districtEl = document.getElementById("district");
+    const lotNoteEl  = document.getElementById("lotNote");
+    const tbodyEl    = document.getElementById("tbody");
+    const footnoteEl = document.getElementById("footnote");
+    const copyLinkEl = document.getElementById("copyLink");
+
+    function fmt(n){ return `${n} ft <span class="unit">(min)</span>`; }
+
+    function render(){
+      const key = districtEl.value;
+      const d = SETBACKS[key];
+
+      tbodyEl.innerHTML = `
+        <tr><td>Front</td><td class="big">${fmt(d.front)}</td></tr>
+        <tr><td>Side</td><td class="big">${fmt(d.side)}</td></tr>
+        <tr><td>Rear</td><td class="big">${fmt(d.rear)}</td></tr>
+      `;
+
+      const noteType = lotNoteEl.value;
+      let note = `<strong>Standard:</strong> Values shown are minimum principal building setbacks for the selected district.`;
+      if(noteType === "secondary"){
+        note = `<strong>Front setback note:</strong> Secondary yard is <strong>15 ft</strong>.`;
+      }
+      if(noteType === "culdesac"){
+        note = `<strong>Front setback note:</strong> Cul-de-sac lots may reduce lot width at building line by <strong>25 ft</strong>.`;
+      }
+
+      footnoteEl.innerHTML = `
+        <div>
+          <div style="margin-bottom:6px;">
+            <strong>Selected district:</strong> ${d.label}
+          </div>
+          <div>${note}</div>
+        </div>
+      `;
+    }
+
+    function init(){
+      Object.keys(SETBACKS).forEach(k=>{
+        const opt = document.createElement("option");
+        opt.value = k;
+        opt.textContent = SETBACKS[k].label;
+        districtEl.appendChild(opt);
+      });
+
+      districtEl.value = "R-1";
+      render();
+
+      districtEl.addEventListener("change", render);
+      lotNoteEl.addEventListener("change", render);
+
+      copyLinkEl.addEventListener("click", async (e)=>{
+        e.preventDefault();
+        try{
+          await navigator.clipboard.writeText(window.location.href);
+          copyLinkEl.textContent = "Copied!";
+          setTimeout(()=> copyLinkEl.textContent = "Copy this page link", 1200);
+        }catch{
+          alert("Copy failed — please copy the URL from the address bar.");
+        }
+      });
+    }
+
+    init();
+  </script>
+</body>
+</html>
